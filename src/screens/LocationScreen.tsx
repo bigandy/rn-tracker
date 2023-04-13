@@ -5,7 +5,6 @@ import {
   Button,
   StyleSheet,
   Text,
-  View,
   ActivityIndicator,
 } from 'react-native';
 
@@ -15,43 +14,23 @@ import GetLocation, {
   LocationErrorCode,
 } from 'react-native-get-location';
 
+import DefaultLayout from '../layouts/DefaultLayout';
 import LocationDebugger from '@components/LocationDebugger';
 
 const styles = StyleSheet.create({
   scrollView: {
-    flex: 1,
-    backgroundColor: 'pink',
-    alignItems: 'center',
-    justifyContent: 'center',
+    minHeight: '100%',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'hsl(50 100% 50%)',
-  },
-  welcome: {
-    fontSize: 100,
-    textAlign: 'center',
-    margin: 40,
-  },
-  location: {
-    color: '#333333',
-    marginBottom: 5,
-  },
+  sectionTitle: {},
+  sectionDescription: {},
+  highlight: {},
+  container: {},
+  welcome: {},
+  location: {},
+  button: {},
 });
 
-function GetLocationScreen({ navigation }: { navigation: any }): JSX.Element {
+export default function LocationScreen(): JSX.Element {
   const showDebug = false; // TODO: is there a way of detecting dev mode?
 
   const [loading, setLoading] = useState(false);
@@ -104,18 +83,13 @@ function GetLocationScreen({ navigation }: { navigation: any }): JSX.Element {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Derp</Text>
-        <Text style={styles.instructions}>
-          To get location, press the button:
-        </Text>
-        <View style={styles.button}>
-          <Button
-            disabled={loading}
-            title="Get Location"
-            onPress={requestLocation}
-          />
-        </View>
+      <DefaultLayout title="Location">
+        <Text>To get location, press the button:</Text>
+        <Button
+          disabled={loading}
+          title="Get Location"
+          onPress={requestLocation}
+        />
         {loading ? <ActivityIndicator /> : null}
         {location ? (
           <Text style={styles.location}>
@@ -124,15 +98,8 @@ function GetLocationScreen({ navigation }: { navigation: any }): JSX.Element {
         ) : null}
         {error ? <Text style={styles.location}>Error: {error}</Text> : null}
 
-        <Button
-          title="Go to Settings"
-          onPress={() => navigation.navigate('Settings')}
-        />
-
         {showDebug && <LocationDebugger />}
-      </View>
+      </DefaultLayout>
     </ScrollView>
   );
 }
-
-export default GetLocationScreen;

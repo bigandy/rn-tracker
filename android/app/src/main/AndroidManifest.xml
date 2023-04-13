@@ -8,6 +8,9 @@
     <!-- Define ACCESS_COARSE_LOCATION if you will use enableHighAccuracy=false  -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
+    <!-- Defined HIGH_SAMPLING_RATE_SENSORS for use in react-native-sensors -->
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+
 
     <application
       android:name=".MainApplication"
